@@ -1,0 +1,219 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Vazirmatn";
+  src: url("/ttf/Vazirmatn-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Ray";
+  src: url("/font/Ray/Ray-ExtraBlack.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Ray_black";
+  src: url("/font/Ray/Ray-Black.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Ray_text";
+  src: url("/font/Ray/Ray-Bold.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+body {
+  font-family: "Ray_text", Arial, sans-serif;
+}
+@layer components {
+  .primary-btn {
+    @apply rounded-md border border-transparent bg-primary px-8 py-3 text-base font-medium text-white hover:bg-white hover:border hover:border-primary hover:text-primary focus:outline-none cursor-pointer  transition-colors duration-500 w-full;
+  }
+}
+
+@layer components {
+  .secondry-btn {
+    @apply rounded-md border border-transparent bg-red-500 px-8 py-3 text-base font-medium text-white hover:bg-white hover:border hover:border-red-500 hover:text-red-500 focus:outline-none cursor-pointer  transition-colors duration-500;
+  }
+}
+
+/* Scrollbar styling for the main page */
+/* body::-webkit-scrollbar {
+  width: 10px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #00513a;
+  border-radius: 5px;
+}
+
+body::-webkit-scrollbar-track {
+  background-color: #8a93a7;
+} */
+
+/* custome style for paganition on  */
+.custom-pagination .swiper-pagination-bullet {
+  @apply w-4 h-1.5 bg-gray-500 rounded-full transition-all  duration-300;
+}
+
+.custom-pagination .swiper-pagination-bullet-active {
+  @apply w-6 h-1.5 bg-[#02DB81] scale-110;
+}
+
+#bill-content {
+  display: flex;
+  justify-content: center;
+  width: 148mm; /* A5 width in portrait */
+  height: 210mm; /* A5 height in portrait */
+  padding: 0;
+  font-family: "Vazirmatn", Arial, sans-serif;
+  background: white;
+  color: black;
+}
+
+/* Print Styles */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  #bill-content,
+  #bill-content * {
+    visibility: visible;
+  }
+
+  /* #bill-content {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  } */
+}
+/* Add this to your global CSS file (e.g., index.css or App.css) */
+@media print {
+  /* 1. Hide everything that is not explicitly part of the printable area */
+  body * {
+    visibility: hidden;
+  }
+
+  /* 2. Make the printable area and ALL its children visible */
+  #printableTableArea,
+  #printableTableArea * {
+    /* The '*' is important to affect all descendants */
+    visibility: visible;
+  }
+
+  /* 3. Position the printable area to take up the page */
+  #printableTableArea {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    margin: 15px; /* Adjust printer margins as needed */
+    padding: 0;
+    background-color: rgb(
+      255,
+      255,
+      255
+    ) !important; /* Ensure background is white for print */
+  }
+
+  .no-print,
+  .no-print * {
+    /* Also hide children of no-print elements */
+    display: none !important;
+    visibility: hidden !important; /* Belt and suspenders */
+  }
+
+  /* 5. CRITICAL: Handle the overflow for the table's wrapper */
+  #printableTableArea .overflow-x-auto {
+    overflow-x: visible !important; /* Allow table to expand beyond screen width for print */
+    overflow-y: visible !important; /* Just in case */
+  }
+
+  /* 6. Style the table for printing */
+  #printableTableArea table {
+    width: 100% !important; /* Or 'auto' if you want it to shrink-to-fit content on print */
+    border-collapse: collapse !important;
+    font-size: 9pt !important; /* Adjust for readability on paper */
+    margin: 0 auto; /* Center table if it's not 100% width */
+    table-layout: auto; /* Let browser adjust columns; 'fixed' can also be used if you have issues */
+    background-color: white !important; /* Ensure table background is white */
+  }
+
+  #printableTableArea th,
+  #printableTableArea td {
+    border: 1px solid #000 !important; /* Black borders for clarity */
+    padding: 4px 6px !important; /* Adjust padding */
+    text-align: center !important;
+    color: #000 !important; /* Ensure text is black */
+    word-wrap: break-word; /* Help prevent long text from overflowing cells */
+  }
+
+  /* Style the table header for printing */
+  #printableTableArea thead tr {
+    background-color: #e0e0e0 !important; /* Light gray background for header */
+    color: #000 !important;
+    -webkit-print-color-adjust: exact; /* For Chrome/Safari to print backgrounds */
+    print-color-adjust: exact; /* Standard property */
+  }
+
+  /* Ensure table body rows have a white background (or alternating if you prefer) */
+  #printableTableArea tbody tr {
+    background-color: #fff !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  /* Optional: Zebra striping for print (uncomment if desired)
+  #printableTableArea tbody tr:nth-child(even) {
+    background-color: #f8f8f8 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  */
+
+  /* Style the title for printing */
+  #printableTableArea h2 {
+    font-size: 14pt !important;
+    text-align: center;
+    color: #000 !important;
+    margin-bottom: 15px;
+    font-weight: bold;
+  }
+
+  /* Try to prevent page breaks inside rows and ensure header repeats */
+  #printableTableArea tr {
+    page-break-inside: avoid !important;
+  }
+  #printableTableArea thead {
+    display: table-header-group !important; /* Crucial for repeating headers on new pages */
+  }
+  #printableTableArea tfoot {
+    display: table-footer-group !important; /* If you had a tfoot */
+  }
+}
+.input-field {
+  @apply border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-1 ring-black/50;
+}
+.input-field1 {
+  @apply border border-gray-300 rounded-md px-2 py-3 focus:outline-none focus:ring-1 ring-black/50;
+}
+
+.input-field {
+  @apply bg-gray-200 p-2 text-sm rounded-md w-full my-2 outline-none;
+}
+
+.auth-button {
+  @apply bg-indigo-700 text-white text-xs font-bold py-2 px-8 rounded-md uppercase mt-4;
+}
